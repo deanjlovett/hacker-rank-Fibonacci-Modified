@@ -33,7 +33,8 @@ test cases:
 #0:   0 1  5
 #1:   0 1 10
 #2:   1 1 20
-#3:   1 2 20 << current cpp code times out, too slow
+#3:   1 2 20 << current cpp code times out, too slow with deque<BigInt>, 
+             << cpp passses when internal digits uses vector<int> instead of string class
 #4:   1 2 15
 #5:   2 0 12
 #6:   2 2 20 << current cpp code times out, too slow
