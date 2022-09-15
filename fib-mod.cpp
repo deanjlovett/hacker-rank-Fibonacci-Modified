@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include <deque> // added 
+#include <vector> // added 
 
 using namespace std;
 
@@ -15,7 +16,8 @@ https://www.geeksforgeeks.org/bigint-big-integers-in-c-with-example/
 */
 
 class BigInt{
-    string digits;
+    // string digits;
+    vector<int> digits;
 public:
  
     //Constructors:
@@ -84,7 +86,9 @@ public:
 };
  
 BigInt::BigInt(string & s){
-    digits = "";
+    // digits = ""; // using string
+    digits.clear(); // using vector<int>
+    
     int n = s.size();
     for (int i = n - 1; i >= 0;i--){
         if(!isdigit(s[i]))
@@ -101,7 +105,9 @@ BigInt::BigInt(unsigned long long nr){
 }
 
 BigInt::BigInt(const char *s){
-    digits = "";
+    // digits = ""; // using string
+    digits.clear(); // using vector<int>
+    
     for (int i = strlen(s) - 1; i >= 0;i--)
     {
         if(!isdigit(s[i]))
@@ -196,8 +202,11 @@ BigInt BigInt::operator--(int temp){
 BigInt &operator+=(BigInt &a,const BigInt& b){
     int t = 0, s, i;
     int n = Length(a), m = Length(b);
-    if(m > n)
-        a.digits.append(m - n, 0);
+    if(m > n) {
+        // a.digits.append(m - n, 0); // from when digits was a string
+        auto p = a.digits.end();
+        auto pRet = a.digits.insert(p,m-n,0);
+    }
     n = Length(a);
     for (i = 0; i < n;i++){
         if(i < m)
@@ -469,43 +478,44 @@ ostream &operator<<(ostream &out,const BigInt &a){
 
 // int fibonacciModified(int t1, int t2, int n) {
 BigInt fibonacciModified(int t1, int t2, int n) {
-    deque<BigInt> a;
+    // deque<BigInt> a;
+    vector<BigInt> a;
     
     BigInt bt1(t1);
     BigInt bt2(t2);
     
-    // a.push_back( BigInt(t1) );
-    // a.push_back( BigInt(t2) );
+    a.push_back( BigInt(t1) );
+    a.push_back( BigInt(t2) );
 
-    // BigInt last;    
-    // int n1 = 0;
-    // int n2 = 1;
-    // cout << "a[0]: " << a[0] << endl; 
-    // cout << "a[1]: " << a[1] << endl;
-    // size_t stn(n);
-    // while(a.size()<stn) {
-    //     last = a[n1];
-    //     last += a[n2]*a[n2]; 
-    //     cout << "a[" << a.size() << "]: " << last << endl; 
-    //     a.push_back(last);
-    //     ++n1;
-    //     ++n2;
-    // }
-    
-    deque<BigInt> b;
-    b.push_back( t1 );
-    b.push_back( t2 );
-    
-    int count = 2;
-    cout << endl;
-    cout << "b[0]: " << b[0] << endl; 
-    cout << "b[1]: " << b[1] << endl;
-    for( ; count<n; ++count,b.pop_front()){
-        b.push_back(b[0]+ b[1]*b[1]);
-        cout << "b[" << count << "]: " << b[2] << endl; 
+    BigInt last;    
+    int n1 = 0;
+    int n2 = 1;
+    cout << "a[0]: " << a[0] << endl; 
+    cout << "a[1]: " << a[1] << endl;
+    size_t stn(n);
+    while(a.size()<stn) {
+        last = a[n1];
+        last += a[n2]*a[n2]; 
+        cout << "a[" << a.size() << "]: " << last << endl; 
+        a.push_back(last);
+        ++n1;
+        ++n2;
     }
-
-    return b[1]; 
+    return a.back();
+        
+    // deque<BigInt> b;
+    // b.push_back( t1 );
+    // b.push_back( t2 );
+    
+    // int count = 2;
+    // cout << endl;
+    // cout << "b[0]: " << b[0] << endl; 
+    // cout << "b[1]: " << b[1] << endl;
+    // for( ; count<n; ++count,b.pop_front()){
+    //     b.push_back(b[0]+ b[1]*b[1]);
+    //     cout << "b[" << count << "]: " << b[2] << endl; 
+    // }
+    // return b[1]; 
 }
 
 int main()
@@ -523,7 +533,10 @@ int main()
 
     int n = stoi(first_multiple_input[2]);
 
-    BigInt result = fibonacciModified(t1, t2, n);
+    // int result = fibonacciModified(t1, t2, n);
+    BigInt result = fibonacciModified( t1, t2, n);
+    
+    cout << "result: " << result << endl;
 
     fout << result << "\n";
 
