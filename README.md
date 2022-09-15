@@ -1,4 +1,7 @@
 # hacker-rank-Fibonacci-Modified
+
+https://www.hackerrank.com/challenges/fibonacci-modified/problem
+
 Given three integers, t1, t2, and N, compute and print the Nth  term of a modified Fibonacci sequence.
 
 ```
@@ -25,4 +28,21 @@ Sample Input:
 Sample Output:
 5
 
+Note:
+test cases:
+#0:   0 1  5
+#1:   0 1 10
+#2:   1 1 20
+#3:   1 2 20 << current cpp code times out, too slow
+#4:   1 2 15
+#5:   2 0 12
+#6:   2 2 20 << current cpp code times out, too slow
+#7:   0 2  9
+#8:   1 1  9
+#9:   2 1  7
+
+
+fib-mod.js  Passes all tests #0 through #9.
+fib-mod.cpp Times out on test case 3 & 6. Passes 0,1,2,_,4,5,_,7,8,9
 ```
+
